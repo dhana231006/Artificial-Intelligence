@@ -1,0 +1,57 @@
+# Water Jug Problem (4L and 3L)
+
+jug4 = 0
+jug3 = 0
+
+print("Initial State:")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 1: Fill 3L jug
+jug3 = 3
+print("\nFill 3L Jug")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 2: Pour 3L into 4L
+jug4 = jug3
+jug3 = 0
+print("\nPour 3L Jug into 4L Jug")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 3: Fill 3L jug again
+jug3 = 3
+print("\nFill 3L Jug Again")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 4: Pour from 3L to 4L until 4L is full
+transfer = 4 - jug4
+jug4 = 4
+jug3 = jug3 - transfer
+print("\nPour into 4L Until Full")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 5: Empty 4L jug
+jug4 = 0
+print("\nEmpty 4L Jug")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 6: Pour remaining water from 3L to 4L
+jug4 = jug3
+jug3 = 0
+print("\nPour Remaining Water into 4L Jug")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 7: Fill 3L jug again
+jug3 = 3
+print("\nFill 3L Jug Again")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+# Step 8: Pour into 4L until full
+transfer = 4 - jug4
+jug4 = 4
+jug3 = jug3 - transfer
+print("\nPour into 4L Until Full")
+print("4L Jug =", jug4, "3L Jug =", jug3)
+
+print("\nGoal Achieved!")
+print("4L Jug has exactly", jug3, "liters remaining in 3L Jug and 4L Jug is full.")
+print("After emptying the 4L jug and transferring, you obtain exactly 2 liters in the 4L jug.")
