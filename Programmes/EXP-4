@@ -1,0 +1,25 @@
+location = "A"
+
+status = {
+    "A": "Dirty",
+    "B": "Dirty"
+}
+
+print("Initial State")
+print(status)
+
+if location == "A":
+    if status["A"] == "Dirty":
+        print("\nCleaning Room A")
+        status["A"] = "Clean"
+
+    print("Moving to Room B")
+    location = "B"
+
+    if status["B"] == "Dirty":
+        print("Cleaning Room B")
+        status["B"] = "Clean"
+
+print("\nFinal State")
+print(status)
+print("All rooms are clean.")
