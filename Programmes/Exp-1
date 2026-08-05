@@ -1,0 +1,66 @@
+from collections import deque
+
+goal = (1, 2, 3, 4, 5, 6, 7, 8, 0)
+
+def get_neighbors(state):
+    neighbors = []
+    index = state.index(0)
+    row, col = divmod(index, 3)
+
+    moves = [(-1,0), (1,0), (0,-1), (0,1)]
+
+    for dr, dc in moves:
+        new_row = row + dr
+        new_col = col + dc
+
+        if 0 <= new_row < 3 and 0 <= new_col < 3:
+            new_index = new_row * 3 + new_col
+            new_state = list(state)
+
+            new_state[index], new_state[new_index] = new_state[new_index], new_state[index]
+
+            neighbors.append(tuple(new_state))
+
+    return neighbors
+
+def solve(start):
+    queue = deque([(start, [])])
+    visited = set()
+
+    while queue:
+        state, path = queue.popleft()
+
+        if state == goal:
+            return path + [state]
+
+        if state in visited:
+            continue
+
+        visited.add(state)
+
+        for neighbor in get_neighbors(state):
+            if neighbor not in visited:
+                queue.append((neighbor, path + [state]))
+
+    return None
+
+def print_board(state):
+    for i in range(0, 9, 3):
+        print(state[i:i+3])
+    print()
+
+start = (1, 2, 3,
+         4, 5, 6,
+         0, 7, 8)
+
+solution = solve(start)
+
+if solution:
+    print("Solution Found!")
+    print()
+
+    for step, state in enumerate(solution):
+        print("Step", step)
+        print_board(state)
+else:
+    print("No Solution Found")
