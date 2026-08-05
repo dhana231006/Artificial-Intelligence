@@ -1,0 +1,63 @@
+graph = {
+    'A': {'B': 1, 'C': 3},
+    'B': {'D': 3, 'E': 6},
+    'C': {'F': 5},
+    'D': {'G': 2},
+    'E': {'G': 1},
+    'F': {'G': 2},
+    'G': {}
+}
+
+heuristic = {
+    'A': 7,
+    'B': 6,
+    'C': 4,
+    'D': 2,
+    'E': 1,
+    'F': 2,
+    'G': 0
+}
+
+def a_star(start, goal):
+    open_list = {start}
+    closed_list = set()
+
+    g = {start: 0}
+    parent = {start: start}
+
+    while open_list:
+        n = None
+
+        for v in open_list:
+            if n is None or g[v] + heuristic[v] < g[n] + heuristic[n]:
+                n = v
+
+        if n == goal:
+            path = []
+            while parent[n] != n:
+                path.append(n)
+                n = parent[n]
+            path.append(start)
+            path.reverse()
+            print("Path Found:", path)
+            print("Total Cost:", g[goal])
+            return
+
+        for m, weight in graph[n].items():
+            if m not in open_list and m not in closed_list:
+                open_list.add(m)
+                parent[m] = n
+                g[m] = g[n] + weight
+            elif g[m] > g[n] + weight:
+                g[m] = g[n] + weight
+                parent[m] = n
+                if m in closed_list:
+                    closed_list.remove(m)
+                    open_list.add(m)
+
+        open_list.remove(n)
+        closed_list.add(n)
+
+    print("Path does not exist!")
+
+a_star('A', 'G')
