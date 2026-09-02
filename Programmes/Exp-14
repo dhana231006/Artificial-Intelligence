@@ -1,0 +1,74 @@
+# Alpha-Beta Pruning Algorithm for Gaming
+
+def alpha_beta(depth, node, alpha, beta, maximizing_player, values):
+
+    # Leaf node
+    if depth == 3:
+        return values[node]
+
+    if maximizing_player:
+        best = -1000
+
+        for i in range(2):
+            value = alpha_beta(
+                depth + 1,
+                node * 2 + i,
+                alpha,
+                beta,
+                False,
+                values
+            )
+
+            best = max(best, value)
+            alpha = max(alpha, best)
+
+            # Beta pruning
+            if beta <= alpha:
+                print("Beta Pruning at node:", node)
+                break
+
+        return best
+
+    else:
+        best = 1000
+
+        for i in range(2):
+            value = alpha_beta(
+                depth + 1,
+                node * 2 + i,
+                alpha,
+                beta,
+                True,
+                values
+            )
+
+            best = min(best, value)
+            beta = min(beta, best)
+
+            # Alpha pruning
+            if beta <= alpha:
+                print("Alpha Pruning at node:", node)
+                break
+
+        return best
+
+
+# Leaf node values of the game tree
+values = [3, 5, 2, 9, 12, 5, 23, 23]
+
+alpha = -1000
+beta = 1000
+
+result = alpha_beta(
+    0,
+    0,
+    alpha,
+    beta,
+    True,
+    values
+)
+
+print("\nLeaf Node Values:")
+print(values)
+
+print("Best Value using Alpha-Beta Pruning:", result)
